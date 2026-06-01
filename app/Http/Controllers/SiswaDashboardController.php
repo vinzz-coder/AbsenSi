@@ -22,6 +22,8 @@ class SiswaDashboardController extends Controller
 
         if (!$siswa) {
             Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
             return redirect()->route('login')->withErrors([
                 'loginError' => 'Data profil siswa Anda tidak ditemukan di sistem. Silakan hubungi admin.',
             ]);

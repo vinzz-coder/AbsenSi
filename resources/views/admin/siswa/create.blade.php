@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mb-4">
-    <a href="{{ route('siswa.index') }}" class="btn btn-sm btn-outline-secondary rounded-3 px-3">
+    <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-secondary rounded-3 px-3">
         <i class="bi bi-arrow-left-short fs-5 align-middle"></i> Kembali
     </a>
 </div>
@@ -92,7 +92,7 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-end gap-2 mt-5">
-                    <a href="{{ route('siswa.index') }}" class="btn btn-light rounded-3 px-4">Batal</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-light rounded-3 px-4">Batal</a>
                     <button type="submit" class="btn btn-premium-primary px-4">
                         <i class="bi bi-save me-1"></i> Simpan Siswa
                     </button>
