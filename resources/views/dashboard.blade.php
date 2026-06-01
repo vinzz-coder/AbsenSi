@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.guru')
 
 @section('title', 'Dashboard Kelas')
 
@@ -243,15 +243,25 @@
 
                 <!-- PANE 2: Daftar & Profil Lengkap Siswa -->
                 <div class="tab-pane fade" id="siswa-pane" role="tabpanel" aria-labelledby="siswa-tab" tabindex="0">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-people-fill text-primary me-2"></i>Database Profil Siswa</h5>
+                            <p class="text-xs text-muted mb-0">Kelola informasi data profil, pembuatan akun, dan penghapusan data siswa.</p>
+                        </div>
+                        <a href="{{ route('siswa.create') }}" class="btn btn-premium-primary px-4 py-2.5 rounded-3 d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-plus-lg fs-6"></i> Tambah Siswa Baru
+                        </a>
+                    </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-hover table-premium align-middle" id="studentDatabaseTable">
                             <thead>
                                 <tr>
                                     <th style="width: 80px;">NIS</th>
                                     <th>Nama Lengkap</th>
-                                    <th style="width: 150px;">Jenis Kelamin</th>
+                                    <th style="width: 140px;">Jenis Kelamin</th>
                                     <th>Alamat Lengkap</th>
-                                    <th style="width: 180px;">Aksi</th>
+                                    <th style="width: 240px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -280,10 +290,20 @@
                                             <span class="text-dark-emphasis" style="font-size: 13.5px;"><i class="bi bi-geo-alt-fill text-muted me-1"></i>{{ $siswa->alamat ?? 'Surabaya' }}</span>
                                         </td>
                                         <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="{{ route('siswa.show', $siswa->id) }}" class="btn btn-sm btn-outline-primary px-3 rounded-3 d-inline-flex align-items-center gap-2">
-                                                    <i class="bi bi-eye"></i> Detail Profil
+                                            <div class="d-flex gap-1.5">
+                                                <a href="{{ route('siswa.show', $siswa->id) }}" class="btn btn-sm btn-outline-primary px-2.5 py-1 rounded-3 d-inline-flex align-items-center gap-1" style="font-size: 13px;">
+                                                    <i class="bi bi-eye"></i> Detail
                                                 </a>
+                                                <a href="{{ route('siswa.edit', $siswa->id) }}" class="btn btn-sm btn-outline-warning px-2.5 py-1 rounded-3 d-inline-flex align-items-center gap-1" style="font-size: 13px;">
+                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                </a>
+                                                <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data siswa ini? Semua data absensi dan akun login terkait akan dihapus secara permanen.')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger px-2.5 py-1 rounded-3 d-inline-flex align-items-center gap-1" style="font-size: 13px;">
+                                                        <i class="bi bi-trash"></i> Hapus
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -365,6 +385,16 @@ document.addEventListener('DOMContentLoaded', function() {
             tab.classList.remove('text-secondary');
         });
     });
+
+    // Cek parameter URL untuk tab aktif
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeTabParam = urlParams.get('tab');
+    if (activeTabParam === 'siswa') {
+        const studentTab = document.getElementById('siswa-tab');
+        if (studentTab) {
+            bootstrap.Tab.getOrCreateInstance(studentTab).show();
+        }
+    }
 });
 </script>
 @endsection

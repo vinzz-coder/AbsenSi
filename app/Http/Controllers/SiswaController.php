@@ -22,7 +22,7 @@ class SiswaController extends Controller
     public function create()
     {
         $kelas = Kelas::with('jurusan')->orderBy('nama_kelas', 'asc')->get();
-        return view('admin.siswa.create', compact('kelas'));
+        return view('guru.siswa.create', compact('kelas'));
     }
 
     /**
@@ -77,7 +77,7 @@ class SiswaController extends Controller
             $query->orderBy('tanggal_absen', 'desc');
         }]);
         
-        return view('admin.siswa.show', compact('siswa'));
+        return view('guru.siswa.show', compact('siswa'));
     }
 
     /**
@@ -86,7 +86,7 @@ class SiswaController extends Controller
     public function edit(Siswa $siswa)
     {
         $kelas = Kelas::with('jurusan')->orderBy('nama_kelas', 'asc')->get();
-        return view('admin.siswa.edit', compact('siswa', 'kelas'));
+        return view('guru.siswa.edit', compact('siswa', 'kelas'));
     }
 
     /**

@@ -271,9 +271,21 @@
         <ul class="sidebar-menu">
             @if(Auth::user()->role === 'guru')
                 <li class="sidebar-item">
-                    <a href="{{ route('dashboard') }}" class="sidebar-link {{ Route::is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="sidebar-link {{ Route::is('dashboard') && request()->get('tab') !== 'siswa' ? 'active' : '' }}">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Dashboard Kelas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('siswa.create') }}" class="sidebar-link {{ Route::is('siswa.create') ? 'active' : '' }}">
+                        <i class="bi bi-person-plus-fill"></i>
+                        <span>Tambah Siswa</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('dashboard') }}?tab=siswa" class="sidebar-link {{ request()->get('tab') === 'siswa' ? 'active' : '' }}">
+                        <i class="bi bi-pencil-square"></i>
+                        <span>Edit Data Siswa</span>
                     </a>
                 </li>
             @else

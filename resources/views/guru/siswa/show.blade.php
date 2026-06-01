@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.guru')
 
 @section('title', 'Profil Siswa')
 
@@ -54,10 +54,17 @@
                 </div>
             </div>
 
-            <div class="d-grid gap-2 mt-5">
-                <a href="{{ route('siswa.edit', $siswa->id) }}" class="btn btn-outline-warning rounded-3">
-                    <i class="bi bi-pencil-square me-1"></i> Edit Profil Siswa
+            <div class="d-flex gap-2 mt-5">
+                <a href="{{ route('siswa.edit', $siswa->id) }}" class="btn btn-outline-warning rounded-3 flex-grow-1">
+                    <i class="bi bi-pencil-square me-1"></i> Edit Profil
                 </a>
+                <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST" class="flex-grow-1" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data siswa ini? Semua data absensi dan akun login terkait akan dihapus secara permanen.')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger rounded-3 w-100">
+                        <i class="bi bi-trash me-1"></i> Hapus Siswa
+                    </button>
+                </form>
             </div>
         </div>
     </div>

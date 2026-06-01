@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 
     // Guru-Only Routes
     Route::middleware('role:guru')->group(function () {
-        // Dashboard Admin
+        // Dashboard Guru
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // CRUD Resource Routes (Siswa Profile details and edit only)
